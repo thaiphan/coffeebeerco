@@ -23,6 +23,7 @@ export const ProductCard = (props: ProductCardProps) => {
         </div>
       ) : null}
       <Image
+        alt={props.title}
         className="group-hover:opacity-75"
         src={props.image}
         height={300}

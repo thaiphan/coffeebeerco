@@ -1,7 +1,8 @@
 import type { NextPage } from 'next';
-import { useGetProductsQuery } from '../store/apis/coffeebeerco';
-import { ProductCard } from '../components/molecules/ProductCard';
 import { NextSeo } from 'next-seo';
+
+import { ProductCard } from '../components/molecules/ProductCard';
+import { useGetProductsQuery } from '../store/apis/coffeebeerco';
 
 const Home: NextPage = () => {
   const { data } = useGetProductsQuery();
