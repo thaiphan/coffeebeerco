@@ -4,7 +4,8 @@ export interface ProductCardProps {
   image: string;
   title: string;
   category?: string;
-  price: String;
+  price: string;
+  isSale: boolean;
 }
 
 /**
@@ -15,7 +16,12 @@ export interface ProductCardProps {
  */
 export const ProductCard = (props: ProductCardProps) => {
   return (
-    <article className="group">
+    <article className="group relative">
+      {props.isSale ? (
+        <div className="absolute left-0 top-2 z-10 bg-red-600 text-white px-4 py-1 font-bold">
+          Sale
+        </div>
+      ) : null}
       <Image
         className="group-hover:opacity-75"
         src={props.image}
@@ -27,7 +33,14 @@ export const ProductCard = (props: ProductCardProps) => {
       {props.category ? (
         <p className="text-gray-700">{props.category}</p>
       ) : null}
-      <p className="mt-2">{props.price}</p>
+      <p className="mt-2">
+        <span
+          className={props.isSale ? 'line-through text-red-600' : undefined}
+        >
+          {props.price}
+        </span>
+        {props.isSale ? <span className="ml-1">{props.price}</span> : null}
+      </p>
     </article>
   );
 };

@@ -18,6 +18,7 @@ const Home: NextPage = () => {
             title={product.productName}
             category={product.type}
             price={product.price}
+            isSale={product.isSale}
           />
         ))}
       </div>
