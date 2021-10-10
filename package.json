@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.4.1",
     "@reduxjs/toolkit": "^1.6.2",
+    "@tailwindcss/aspect-ratio": "^0.3.0",
     "next": "11.1.2",
     "next-seo": "^4.28.1",
     "react": "17.0.2",
