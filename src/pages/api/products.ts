@@ -6,6 +6,8 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Product[]>
 ) {
+  const filter = req.query.filter;
+
   const products: Product[] = [
     {
       index: 0,
@@ -73,5 +75,13 @@ export default function handler(
     },
   ];
 
-  res.status(200).json(products);
+  if (filter) {
+    res.status(200).json(
+      products.filter((product) => {
+        return product.type === filter;
+      })
+    );
+  } else {
+    res.status(200).json(products);
+  }
 }

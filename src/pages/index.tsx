@@ -4,22 +4,18 @@ import { useMemo, useState } from 'react';
 
 import { Select } from '../components/atoms/Select';
 import { ProductCard } from '../components/molecules/ProductCard';
-import { useGetProductsQuery } from '../store/apis/coffeebeerco';
+import {
+  useGetCategoriesQuery,
+  useGetProductsQuery,
+} from '../store/apis/coffeebeerco';
 
 const Home: NextPage = () => {
   const [selectedFilter, setSelectedFilter] = useState<'None' | string>('None');
 
-  const { data = [] } = useGetProductsQuery();
-
-  const uniqueProductTypes = useMemo(() => {
-    const productTypes = new Set<string>();
-
-    data.forEach((product) => {
-      productTypes.add(product.type);
-    });
-
-    return Array.from(productTypes);
-  }, [data]);
+  const { data: categories = [] } = useGetCategoriesQuery();
+  const { data: products = [] } = useGetProductsQuery(
+    selectedFilter !== 'None' ? selectedFilter : undefined
+  );
 
   const filterOptions = useMemo(() => {
     const options = [
@@ -29,15 +25,15 @@ const Home: NextPage = () => {
       },
     ];
 
-    uniqueProductTypes.forEach((productType) => {
+    categories.forEach((category) => {
       options.push({
-        value: productType,
-        label: productType,
+        value: category,
+        label: category,
       });
     });
 
     return options;
-  }, [uniqueProductTypes]);
+  }, [categories]);
 
   const handleFilterChange = (value: string) => {
     setSelectedFilter(value);
@@ -57,7 +53,7 @@ const Home: NextPage = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {data.map((product) => (
+        {products.map((product) => (
           <ProductCard
             key={product.index}
             image="http://placekitten.com/g/400/300"
