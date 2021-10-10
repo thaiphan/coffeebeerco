@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.1",
     "@reduxjs/toolkit": "^1.6.2",
     "next": "11.1.2",
     "next-seo": "^4.28.1",
