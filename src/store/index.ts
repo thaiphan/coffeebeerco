@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import { coffeebeercoApi } from './apis/coffeebeerco';
 
 export const store = configureStore({

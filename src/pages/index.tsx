@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 
 import { Select } from '../components/atoms/Select';
 import { ProductCard } from '../components/molecules/ProductCard';
+import { ProductCardSkeleton } from '../components/molecules/ProductCardSkeleton';
 import {
   useGetCategoriesQuery,
   useGetProductsQuery,
@@ -13,7 +14,7 @@ const Home: NextPage = () => {
   const [selectedFilter, setSelectedFilter] = useState<'None' | string>('None');
 
   const { data: categories = [] } = useGetCategoriesQuery();
-  const { data: products = [] } = useGetProductsQuery(
+  const { data: products = [], isSuccess } = useGetProductsQuery(
     selectedFilter !== 'None' ? selectedFilter : undefined
   );
 
@@ -53,16 +54,29 @@ const Home: NextPage = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {products.map((product) => (
-          <ProductCard
-            key={product.index}
-            image="http://placekitten.com/g/400/300"
-            title={product.productName}
-            category={product.type}
-            price={product.price}
-            isSale={product.isSale}
-          />
-        ))}
+        {isSuccess ? (
+          products.map((product) => (
+            <ProductCard
+              key={product.index}
+              image="http://placekitten.com/g/400/300"
+              title={product.productName}
+              category={product.type}
+              price={product.price}
+              isSale={product.isSale}
+            />
+          ))
+        ) : (
+          <>
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+          </>
+        )}
       </div>
     </div>
   );
